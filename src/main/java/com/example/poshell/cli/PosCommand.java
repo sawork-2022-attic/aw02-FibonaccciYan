@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import javax.validation.constraints.Null;
+
 @ShellComponent
 public class PosCommand {
 
@@ -37,5 +39,43 @@ public class PosCommand {
             return posService.getCart().toString();
         }
         return "ERROR";
+    }
+
+    @ShellMethod(value = "Clear Cart", key = "c")
+    public String clearCart() {
+        posService.clearCart();
+        return posService.getCart().toString();
+    }
+
+    @ShellMethod(value = "Show Cart", key = "s")
+    public String showCart() {
+        if(posService.getCart() == null) {
+            return "There's no cart found. Press 'n' to create a new one.";
+        }
+        return posService.getCart().toString();
+    }
+
+    @ShellMethod(value = "Modify Product Amount", key = "m")
+    public String modifyCart(int index, int amount) {
+        if(posService.getCart() == null) {
+            return "There's no cart found. Press 'n' to create a new one.";
+        }
+        if(posService.modifyCart(index, amount)) {
+            return "Success!";
+        } else {
+            return "Failed! Please check again.";
+        }
+    }
+
+    @ShellMethod(value = "Delete Certain Product", key = "d")
+    public String deleteProduct(int index) {
+        if(posService.getCart() == null) {
+            return "There's no cart found. Press 'n' to create a new one.";
+        }
+        if(posService.deleteProduct(index)) {
+            return "Success!";
+        } else {
+            return "Failed! Please check again.";
+        }
     }
 }

@@ -13,6 +13,8 @@ public interface PosDB {
 
     public Cart getCart();
 
+    public void clearCart();
+
     public Product getProduct(String productId);
 
 }

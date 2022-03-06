@@ -55,6 +55,31 @@ public class PosServiceImp implements PosService {
     }
 
     @Override
+    public void clearCart() { posDB.clearCart(); }
+
+    @Override
+    public Boolean modifyCart(int index, int amount) {
+        int nums = posDB.getCart().getItems().size();
+        if(index > nums || index < 1) {
+            return false;
+        }
+        Item newItem = posDB.getCart().getItems().get(index - 1);
+        newItem.setAmount(amount);
+        posDB.getCart().getItems().set(index - 1, newItem);
+        return true;
+    }
+
+    @Override
+    public Boolean deleteProduct(int index) {
+        int nums = posDB.getCart().getItems().size();
+        if(index > nums || index < 1) {
+            return false;
+        }
+        posDB.getCart().getItems().remove(index - 1);
+        return true;
+    }
+
+    @Override
     public List<Product> products() {
         return posDB.getProducts();
     }

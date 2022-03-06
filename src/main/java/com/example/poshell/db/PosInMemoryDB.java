@@ -30,6 +30,11 @@ public class PosInMemoryDB implements PosDB {
     }
 
     @Override
+    public void clearCart() {
+        cart.getItems().clear();
+    }
+
+    @Override
     public Product getProduct(String productId) {
         for (Product p : getProducts()) {
             if (p.getId().equals(productId)) {

@@ -46,3 +46,15 @@ Please use asciinema (https://asciinema.org) to record a demo and submit the url
 
 And please elaborate your understanding in layered systems via this homework in your README.md.
 
+## 个人对分层结构的理解
+
+以本项目为例：
+
+1. cli：定义shell层的命令，即与用户进行交互，将命令的具体实现交给PosService来完成；
+
+2. biz：定义PosService，负责命令的具体实现，对数据的处理交给database来完成；
+
+3. db：负责数据的处理，但对于数据对象的实现方式并不关心，只调用接口来进行操作；
+
+4. model：负责数据对象的具体实现，同时向上提供统一的调用接口；
+
